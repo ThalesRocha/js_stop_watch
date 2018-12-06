@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Javascript Stopwatch</title>
+    <meta charset="utf-8">
+</head>
+
+<body>
+    <h1>Javascript Stopwatch</h1>
+
+    <input type="text" value="00 : 00 : 00" id="cronometro">
+    <br>
+    <br>
+    <button id="start">Iniciar</button>
+    <button id="pause">Pausar</button>
+    <button id="stop">Parar</button>
+
+    <script>
+
+        (function () {
+
+            var $stopwatch = document.querySelector('#stopwatch');
+            var $start = document.querySelector('#start');
+            var $pause = document.querySelector('#pause');
+            var $stop = document.querySelector('#stop');
+
+
+            function mili2Time(tempTime) {
+
+                var milliseconds = tempTime % 1000;
+                tempTime = Math.floor(tempTime / 1000);
+                var seconds = tempTime % 60;
+                tempTime = Math.floor(tempTime / 60);
+                var minutes = tempTime % 60;
+                tempTime = Math.floor(tempTime / 60);
+                var hours = tempTime % 60;
+
+                var time = formatNumber(hours) + " : " + formatNumber(minutes) + " : " + formatNumber(seconds) + "." + milliseconds;
+
+                return time;
+            }
+
+            var interval;
+
+            function start() {
+
+                if (!interval) {
+                    var initial_date = new Date();
+
+                    interval = setInterval(startCount, 10);
+                }
+
+                function startCount() {
+
+                    $stopwatch.value = mili2Time(new Date() - initial_date);
+
+                }
+
+            }
+
+            function pause() {
+                clearInterval(interval);
+                interval = 0;
+
+            }
+
+            function stop() {
+                clearInterval(interval);
+                $stopwatch.value = "00 : 00 : 00";
+                interval = 0;
+            }
+
+            function formatNumber(number) {
+                if (number < 10) {
+                    return "0" + number
+                }
+                return number
+            }
+
+            $pause.addEventListener("click", pause);
+            $stop.addEventListener("click", stop);
+            $start.addEventListener("click", start);
+
+
+        })()
+
+    </script>
+</body>
+
+</html>
