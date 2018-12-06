@@ -1,2 +1,3 @@
-# js_stop_watch
-JavaScript StopWatch
+# JavaScript StopWatch
+
+A simple JavaScript StopWatch, maked with a lot of fun :D
